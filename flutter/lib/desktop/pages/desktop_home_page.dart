@@ -259,7 +259,8 @@ class _DesktopHomePageState extends State<DesktopHomePage>
     final textColor = Theme.of(context).textTheme.titleLarge?.color;
     RxBool hover = false.obs;
     
-  return SizedBox.shrink();
+    return SizedBox.shrink();
+  }
 
   buildPasswordBoard(BuildContext context) {
     return ChangeNotifierProvider.value(
