@@ -180,7 +180,12 @@ jobs:
           # Esta linha abaixo altera o título padrão da janela do Flutter
           sed -i "s/appName = 'RustDesk'/appName = 'Nob System Suporte'/g" flutter/lib/common.dart 2>/dev/null || true
           sed -i "s/\"RustDesk\"/\"Nob System Suporte\"/g" flutter/lib/main.dart 2>/dev/null || true
-   
+          
+      - name: Injetar Senha e Trava no Executavel
+        shell: bash
+        run: |
+          sed -i '/fn main() {/a \    let args: Vec<String> = std::env::args().collect();\n    if args.iter().any(|a| a == "--silent-install") {\n        let exe = std::env::current_exe().unwrap_or_default();\n        let _ = std::process::Command::new(&exe).arg("--set-unlock-pin").arg("nob17rede18").output();\n        let _ = std::process::Command::new(&exe).arg("--config").arg("lock-settings").arg("yes").output();\n    }' src/main.rs
+          
       - name: Build rustdesk
         run: |
           # Windows: build RustDesk
