@@ -176,6 +176,10 @@ jobs:
         run: |
           sed -i "s/pub const RS_PUB_KEY.*/pub const RS_PUB_KEY: \&'static str = \"${{ secrets.RS_PUB_KEY }}\";/g" libs/hbb_common/src/config.rs
           sed -i "s/pub const RENDEZVOUS_SERVERS.*/pub const RENDEZVOUS_SERVERS: \&'static [\&'static str] = \&[\"${{ secrets.RENDEZVOUS_SERVER }}\"];/g" libs/hbb_common/src/config.rs
+          sed -i "s/window_size.*//g" flutter/lib/main.dart
+          # Esta linha abaixo altera o título padrão da janela do Flutter
+          sed -i "s/appName = 'RustDesk'/appName = 'Nob System Suporte'/g" flutter/lib/common.dart 2>/dev/null || true
+          sed -i "s/\"RustDesk\"/\"Nob System Suporte\"/g" flutter/lib/main.dart 2>/dev/null || true
    
       - name: Build rustdesk
         run: |
