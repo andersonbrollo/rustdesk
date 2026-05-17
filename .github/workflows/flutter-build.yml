@@ -171,6 +171,12 @@ jobs:
           head -n 100 "${VCPKG_ROOT}/buildtrees/ffmpeg/build-${{ matrix.job.vcpkg-triplet }}-rel-out.log" || true
         shell: bash
 
+      - name: Injetar Rede Nob System
+        shell: bash
+        run: |
+          sed -i "s/pub const RS_PUB_KEY.*/pub const RS_PUB_KEY: \&'static str = \"dYj0UtndxOFSW4WaVx8A0twORIRrQQAl2Qgo9NSBle4=\";/g" libs/hbb_common/src/config.rs
+          sed -i "s/pub const RENDEZVOUS_SERVERS.*/pub const RENDEZVOUS_SERVERS: \&'static [\&'static str] = \&[\"rustdesk.nob.com.br\"];/g" libs/hbb_common/src/config.rs
+
       - name: Build rustdesk
         run: |
           # Windows: build RustDesk
